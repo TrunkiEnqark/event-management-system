@@ -1,6 +1,4 @@
-from ..users.user import *
-import bcrypt
-import time
+from ..users.User import *
 import os
 
 def main_menu(options: list[str]) -> int:
@@ -15,29 +13,39 @@ def main_menu(options: list[str]) -> int:
         except ValueError:
             print("Please choose a valid number!")
     return option # return the user's option
-        
-def load_login(users: Users):
+
+def next_menu(users: Users, current_user: str):
+    cur_role = users.get_role(current_user)
+    match cur_role:
+        case "Admin":
+            from .sub_menus.AdminMenu import admin_menu
+            os.system('cls')
+            admin_menu(current_user, users)
+        case "Organizer":
+            pass
+        case "Visitor":
+            pass
+
+def load_login(users: Users) -> str:
     while True: 
         try:
             users.load_users()
-            os.system('cls')
+            # os.system('cls')
             username = input("Username: ")
             password = input("Password: ")
 
             if not users.is_user_exist(username):
                 print(f"Error: {username} does not exist")
             
-            # hashed_password = users[username]['password'].encode('utf-8')
-            
             if password == users.get_pw(username):
                 print(f'Logged in successfully for {username} as {users.get_role(username)}')
-                time.sleep(3)
-                os.system('cls')
-                break
+                # time.sleep(3)
+                users.save_users()
+                # os.system('cls')
+                return username
             else:
                 print("Your entered password does not match the username.")
             
-            users.save_users()
         except Exception as e:
             print(f"{e}")
 
@@ -71,7 +79,7 @@ def load_register(users: Users):
         
         users.save_users()
         print(f'Registered successfully for {username} as {users.get_role(username)}')
-        time.sleep(3)
+        # time.sleep(3)
         os.system('cls')
     except Exception as e:
         print(f"Error: {e}")

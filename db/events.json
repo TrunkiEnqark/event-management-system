@@ -1,0 +1,16 @@
+{
+    "Annual Meetup": {
+        "id": 1,
+        "priority": 1,
+        "organizers": ["Alice", "Bob"],
+        "description": "Company-wide annual meetup.",
+        "subevents": ["Workshop", "Dinner"]
+    },
+    "Weekly Sync": {
+        "id": 2,
+        "priority": 5,
+        "organizers": ["Charlie"],
+        "description": "Weekly team status meeting.",
+        "subevents": []
+    }
+}

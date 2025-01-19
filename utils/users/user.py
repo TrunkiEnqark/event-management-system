@@ -1,10 +1,12 @@
 import json
+import pandas as pd
+from tabulate import tabulate
 from enum import Enum
 
-Role = Enum('Role', [('Admin', 0), ('Organizer', 1), ('Normal', 2)])
+Role = Enum('Role', [('Admin', 0), ('Organizer', 1), ('Visitor', 2)])
 
 class User:
-    def __init__(self, name: str, username: str, upw: str, umail: str, uphone: str, urole: Role = Role.Normal):
+    def __init__(self, name: str, username: str, upw: str, umail: str, uphone: str, urole: Role = Role.Visitor):
         self.username = username
         self.data = {
             "name": name,
@@ -26,7 +28,7 @@ class User:
 class Users:
     def __init__(self, file_dir=None):
         self.file = file_dir
-        self.users = dict()
+        self.users = {}
 
     def add_user(self, new_user: User):
         if self.is_user_exist(new_user.get_username()):
@@ -71,3 +73,14 @@ class Users:
 
     def get_users(self):
         return self.users
+    
+    def view_all_users(self):
+        data_dict = {
+            key: {"username": key, **value} for key, value in self.users.items()
+        }
+        df = pd.DataFrame(data_dict.values())
+        print(tabulate(
+            df,
+            headers="keys",
+            tablefmt="grid"
+        ))
