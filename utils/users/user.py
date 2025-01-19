@@ -74,6 +74,16 @@ class Users:
     def get_users(self):
         return self.users
     
+    def change_attribute(self, username: str, attribute: str, new_val: str):
+        self.users[username][attribute] = new_val
+    
+    def delete_user(self, username: str) -> bool:
+        if username in self.users:
+            del self.users[username]
+            return True
+        print(f"There does not exist {username}")
+        return False
+    
     def view_all_users(self):
         data_dict = {
             key: {"username": key, **value} for key, value in self.users.items()

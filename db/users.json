@@ -5,12 +5,5 @@
         "role": "Admin",
         "email": "",
         "phone": ""
-    },
-    "quoctk": {
-        "name": "Tran Kien Quoc",
-        "password": "quoc31082005",
-        "role": "Visitor",
-        "email": "quock",
-        "phone": "045938275"
     }
 }
