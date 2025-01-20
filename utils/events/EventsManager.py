@@ -1,3 +1,6 @@
+# Event manager for 3 roles
+# Admin: edit, change
+
 from Event import *
 from ..users.User import *
 

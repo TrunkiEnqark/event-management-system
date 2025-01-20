@@ -1,10 +1,37 @@
 import json
 import tabulate
+from enum import Enum
 
+EventStatus = Enum('Status', 
+                    [
+                        ('Upcoming', 0),
+                        ('OnGoing', 1),
+                        ('Completed', 2),
+                        ('Cancelled', 3),
+                        ('Closed', 4),
+                    ])
 class Event:
-    def __init__(self, ename: str, organizers=[], priority=99, description=""):
+    def __init__(self, 
+                 ename: str, 
+                 status: EventStatus, 
+                 event_type: str, 
+                 price: str, 
+                 start_date=None, 
+                 end_date=None, 
+                 location=None, 
+                 organizers=[], 
+                 attendees=[], 
+                 priority=99, 
+                 description=""):
         self.name = ename
         self.details = {
+            "status": status.value,
+            "type": event_type,
+            "price": price,
+            "start": start_date,
+            "end": end_date,
+            "location": location,
+            "attendees": attendees,
             "priority": priority,
             "organizers": organizers,
             "description": description,
