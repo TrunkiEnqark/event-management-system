@@ -5,5 +5,12 @@
         "role": "Admin",
         "email": "",
         "phone": ""
+    },
+    "admin123": {
+        "name": "",
+        "password": "",
+        "role": "Admin",
+        "email": "",
+        "phone": ""
     }
 }

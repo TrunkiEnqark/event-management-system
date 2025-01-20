@@ -16,7 +16,7 @@ users.load_users()
 #=============================
 
 if __name__ == "__main__":
-    print(users.get_users())
+    # print(users.get_users())
     while True:
         option = main_menu(MAIN_OPTIONS)
         

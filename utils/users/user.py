@@ -68,6 +68,12 @@ class Users:
             return user_data["password"]
         return None
     
+    def is_matched_password(self, username: str, entered_password: str) -> bool:
+        if username in self.users:
+            return self.users[username]['password'] == entered_password
+        print(f"There does not exist {username}")
+        return False
+    
     def is_user_exist(self, username: str) -> bool:
         return username in self.users
 
@@ -94,3 +100,21 @@ class Users:
             headers="keys",
             tablefmt="grid"
         ))
+        
+    def remove_except_admin(self):
+        organizers_count, visitors_count = 0, 0
+        users_to_remove = []
+        for username in self.users:
+            if self.users[username]['role'] != "Admin":
+                if self.users[username]['role'] == "Organizer":
+                    organizers_count += 1
+                else:
+                    visitors_count += 1
+                users_to_remove.append(username)
+        
+        for username in users_to_remove:
+            del self.users[username]        
+        
+        print(f'Deleted {organizers_count} organizer accounts.')
+        print(f'Deleted {visitors_count} visitor accounts.')
+        print(f'Deleted {organizers_count + visitors_count} accounts in total.')
