@@ -1,6 +1,8 @@
 from time import sleep
 from ...users.User import *
 from ..MainMenu import *
+from ...events.Event import *
+from ...events.EventsManager import *
 import os
 
 ADMIN_OPTIONS = [
@@ -28,21 +30,22 @@ EDIT_USER_OPTIONS = [
 ]
 
 
-def admin_menu(username: str, users: Users):
+def admin_menu(username: str, users: Users, events: Events):
     print("============ ADMIN MENU ==============")
     print(f"User: {username}")
     while True:
         option = main_menu(ADMIN_OPTIONS)
         match option:
-            case 1:
+            case 1: # view users
                 view_users(users, username)
-            case 2:
-                pass
-            case 3:
-                pass
-            case 4:
+            case 2: # view events
+                evmgr = EventsManager(events=events, curr_user=username)
+                evmgr.manager()
+            case 3: # back
                 os.system('cls')
-                break # out admin menu
+                break
+            case 4:
+                exit()
             
         users.save_users()
 

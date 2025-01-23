@@ -1,5 +1,6 @@
 import json
 import tabulate
+from datetime import date
 from enum import Enum
 
 EventStatus = Enum('Status', 
@@ -43,12 +44,14 @@ class Events:
         self.file = file_dir
         self.data = dict()
         
-    def load_events(self, file_dir=None):
+    def load_events(self, file_dir=None) -> dict:
         if file_dir is not None:
             self.file = file_dir
+            return None
         try:
             with open(self.file, 'r') as f:
                 self.data = json.load(f)
+            return self.data
         except FileNotFoundError:
             print(f"{self.file} does not exist!")
         except json.JSONDecodeError:
@@ -65,19 +68,4 @@ class Events:
             print(f"{e}: Error when saving file")
             
     def list_events(self):
-        if not self.data:
-            print("No events to display.")
-            return
-        
-        table = []
-        for event_name, event_details in self.data.items():
-            table.append([
-                event_name,
-                ", ".join(event_details["organizers"]),
-                event_details["priority"],
-                event_details["description"],
-                len(event_details["subevents"])
-            ])
-        
-        headers = ["Event Name", "Organizers", "Priority", "Description", "Subevents Count"]
-        print(tabulate(table, headers, tablefmt="grid"))
+        pass

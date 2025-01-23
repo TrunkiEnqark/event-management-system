@@ -1,4 +1,5 @@
 from ..users.User import *
+from ..events.Event import *
 import os
 
 def main_menu(options: list[str]) -> int:
@@ -14,13 +15,13 @@ def main_menu(options: list[str]) -> int:
             print("Please choose a valid number!")
     return option # return the user's option
 
-def next_menu(users: Users, current_user: str):
+def next_menu(users: Users, events: Event, current_user: str):
     cur_role = users.get_role(current_user)
     match cur_role:
         case "Admin":
             from .sub_menus.AdminMenu import admin_menu
             os.system('cls')
-            admin_menu(current_user, users)
+            admin_menu(current_user, users, events)
         case "Organizer":
             pass
         case "Visitor":

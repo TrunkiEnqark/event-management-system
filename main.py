@@ -1,16 +1,19 @@
 from utils.menu.MainMenu import *
 from utils.users.User import *
+from utils.events.Event import *
 
 # *** CONSTANTS VARIABLES ***
 
 MAIN_OPTIONS = ["Log in", "Register", "Exit"]
-USERS_DIR = "db/users.json"
+USERS_DIR = r"./db/users.json"
+EVENTS_DIR = r"./db/events.json"
 
 #=============================
 
 # *** GLOBAL VARIABLES ***
 
 users = Users(file_dir=USERS_DIR)
+events = Events(file_dir=EVENTS_DIR)
 users.load_users()
 
 #=============================
@@ -24,7 +27,7 @@ if __name__ == "__main__":
             case 1:
                 current_user = load_login(users)
                 # print(current_user)
-                next_menu(users, current_user)
+                next_menu(users, events, current_user)
             case 2:
                 load_register(users)
             case 3:
