@@ -5,36 +5,22 @@ from enum import Enum
 
 Role = Enum('Role', [('Admin', 0), ('Organizer', 1), ('Visitor', 2)])
 
-class User:
-    def __init__(self, name: str, username: str, upw: str, umail: str, uphone: str, urole: Role = Role.Visitor):
-        self.username = username
-        self.data = {
-            "name": name,
-            "password": upw,
-            "role": urole.name,  
-            "email": umail,
-            "phone": uphone
-        }
-
-    def get_role(self) -> str:
-        return self.data["role"]
-    
-    def get_username(self) -> str:
-        return self.username
-    
-    def to_json(self):
-        return json.dumps(self.data)
-
 class Users:
     def __init__(self, file_dir=None):
         self.file = file_dir
         self.users = {}
 
-    def add_user(self, new_user: User):
-        if self.is_user_exist(new_user.get_username()):
-            print(f"User '{new_user.get_username()}' already exists!")
+    def add_user(self, username: str, name: str, password: str, role: Role, email: str, phone: str):
+        if self.is_user_exist(username):
+            print(f"User '{username}' already exists!")
         else:
-            self.users[new_user.get_username()] = new_user.data
+            self.users[username] = {
+                "name": name,
+                "password": password,
+                "role": role.name,  
+                "email": email,
+                "phone": phone
+            }
 
     def load_users(self, file=None):
         if file is not None:

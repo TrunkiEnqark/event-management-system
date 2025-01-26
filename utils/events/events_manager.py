@@ -2,12 +2,12 @@
 # Admin: edit, change
 
 import pandas as pd
-import tabulate
+import tabulate as tab
 
 from datetime import date, datetime
-from .Event import *
-from ..users.User import *
-from ..menu.MainMenu import *
+from .event import *
+from ..users.users import *
+from ..menu.main_menu import *
 
 EVENTS_MANAGER_OPTIONS = [
     "View events",
@@ -25,15 +25,20 @@ STATUS_OPTIONS = [
 ]
 
 # Function to input date string and convert 
-def enter_date(script: str) -> date:
-    try:
-        # Convert the string to a datetime object, then extract the date
-        date_str = input(script)
-        date_obj = datetime.strptime(date_str, "%Y/%m/%d").date()
-        return date_obj
-    except ValueError:
-        return "Invalid date format. Please enter in the format YYYY/MM/DD."
-
+def enter_date(script: str) -> str:
+    while True:
+        try:
+            date_str = input(script).strip()
+            if date_str.lower() == "q": 
+                print("Exiting date input.")
+                return None
+            date_obj = datetime.strptime(date_str, "%Y/%m/%d").date()
+            return date_obj.isoformat()  
+        except ValueError:
+            print("Error: Invalid date format. Please use YYYY/MM/DD.")
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            
 # Function to input organizers or attendees
 def add_usernames(typ: str) -> list[str]:
     add_users = input(f'Do you want to add {typ}s to this event? (y/n): ')
@@ -47,25 +52,29 @@ def add_usernames(typ: str) -> list[str]:
     return event_users
 
 # to control all events (only Admin role can access)
-class EventsManager:
-    def __init__(self, events: Events, curr_user: str):
-        self.events = events
+class EventsManager(Events):
+    def __init__(self, file_dir: str, curr_user: str):
+        super().__init__(file_dir)
         self.current_user = curr_user
     
-    def view_events(self):
+    def view_shorten(self):
+        SHORTENED = ['name', 'status', 'price', 'start', 'end', 'location']
+        
         events_dict = {
-            key: {"name": key, **value} for key, value in self.events.data.items()
+            key: {k: value.get(k) for k in SHORTENED if k in value} for key, value in self.data.items()
         }
+        
         df = pd.DataFrame(events_dict.values())
-        print(tabulate.tabulate(
+        
+        print(tab.tabulate(
             df,
             headers="keys",
             tablefmt="grid"
         ))
-    
+        
     def add_event(self, event: Event):
         try:
-            self.events[event.name] = event.details
+            self.data[event.name] = event.details
         except Exception as e:
             print(f'Error: {e}')
     
@@ -74,15 +83,15 @@ class EventsManager:
             option = main_menu(EVENTS_MANAGER_OPTIONS)
             match option:
                 case 1: # view events
-                    self.view_events()
+                    self.view_shorten()
                 case 2: # add new event
                     event_name = input('Enter event name: ')
                     print('Choose status: ')
                     event_status = EventStatus(main_menu(STATUS_OPTIONS) - 1)
                     event_type = input('Enter event type: ')
                     event_price = input('Enter price/ticket: ')
-                    event_start = enter_date('Enter date time to start in the format YYYY/MM/DD: ')
-                    event_end   = enter_date('Enter date time to end in the format YYYY/MM/DD: ')
+                    event_start = enter_date("Enter start date (YYYY/MM/DD or 'q' to quit): ")
+                    event_end   = enter_date("Enter end date (YYYY/MM/DD or 'q' to quit): ")
                     event_location = input('Enter location: ')
                     event_attendees = []
                     event_priority = int(input('Enter the priority of this event (0-99) from High to Low: '))
@@ -103,9 +112,9 @@ class EventsManager:
                         description=event_description
                     ))
                 case 3: # delete all events
-                    pass
-                case 4:
+                    self.reset()
+                case 4: # back
                     break
                 case default:
                     pass
-            self.events.save_events()
+            self.save_events()

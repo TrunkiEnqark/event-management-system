@@ -7,10 +7,17 @@
         "phone": ""
     },
     "admin123": {
-        "name": "",
+        "name": "lmao lmao",
         "password": "",
         "role": "Admin",
         "email": "",
         "phone": ""
+    },
+    "quoctk": {
+        "name": "sdkljfh",
+        "password": "3108",
+        "role": "Visitor",
+        "email": "lasdkjfh",
+        "phone": "laskdfj"
     }
 }

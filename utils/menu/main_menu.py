@@ -1,5 +1,5 @@
-from ..users.User import *
-from ..events.Event import *
+from ..users.users import *
+from ..events.event import *
 import os
 
 def main_menu(options: list[str]) -> int:
@@ -19,7 +19,7 @@ def next_menu(users: Users, events: Event, current_user: str):
     cur_role = users.get_role(current_user)
     match cur_role:
         case "Admin":
-            from .sub_menus.AdminMenu import admin_menu
+            from .sub_menus.admin_menu import admin_menu
             os.system('cls')
             admin_menu(current_user, users, events)
         case "Organizer":
@@ -70,13 +70,14 @@ def load_register(users: Users):
         email = input("Email: ")
         phone = input("Phone number: ")
         
-        users.add_user(User(
-            name=name,
+        users.add_user(
             username=username,
-            upw=password,
-            umail=email,
-            uphone=phone
-        ))
+            name=name,
+            password=password,
+            role=Role.Visitor, # visitor for default register
+            email=email,
+            phone=phone
+        )
         
         users.save_users()
         print(f'Registered successfully for {username} as {users.get_role(username)}')

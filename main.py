@@ -1,6 +1,6 @@
-from utils.menu.MainMenu import *
-from utils.users.User import *
-from utils.events.Event import *
+from utils.menu.main_menu import *
+from utils.users.users import *
+from utils.events.event import *
 
 # *** CONSTANTS VARIABLES ***
 
@@ -15,6 +15,7 @@ EVENTS_DIR = r"./db/events.json"
 users = Users(file_dir=USERS_DIR)
 events = Events(file_dir=EVENTS_DIR)
 users.load_users()
+events.load_events()
 
 #=============================
 

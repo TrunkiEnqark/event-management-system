@@ -47,7 +47,6 @@ class Events:
     def load_events(self, file_dir=None) -> dict:
         if file_dir is not None:
             self.file = file_dir
-            return None
         try:
             with open(self.file, 'r') as f:
                 self.data = json.load(f)
@@ -60,12 +59,15 @@ class Events:
     def save_events(self, file_dir=None):
         if file_dir is not None:
             self.file = file_dir
-        
         try:
             with open(self.file, 'w') as f:
                 json.dump(self.data, f, indent=4)
         except Exception as e:
             print(f"{e}: Error when saving file")
-            
+    
+    def reset(self):
+        self.data = dict()
+        self.save_events()
+    
     def list_events(self):
         pass

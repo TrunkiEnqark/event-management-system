@@ -1,8 +1,8 @@
 from time import sleep
-from ...users.User import *
-from ..MainMenu import *
-from ...events.Event import *
-from ...events.EventsManager import *
+from ...users.users import *
+from ..main_menu import *
+from ...events.event import *
+from ...events.events_manager import *
 import os
 
 ADMIN_OPTIONS = [
@@ -39,7 +39,10 @@ def admin_menu(username: str, users: Users, events: Events):
             case 1: # view users
                 view_users(users, username)
             case 2: # view events
-                evmgr = EventsManager(events=events, curr_user=username)
+                # print(events.file)
+                # print(events.data)
+                evmgr = EventsManager(file_dir=events.file, curr_user=username)
+                evmgr.__dict__.update(events.__dict__)
                 evmgr.manager()
             case 3: # back
                 os.system('cls')

@@ -1,59 +1,69 @@
 {
-    "Tech_Conference_2024": {
+    "Event1": {
         "status": 0,
         "type": "Conference",
-        "price": "$500",
-        "start": "2024-09-15",
-        "end": "2024-09-17", 
-        "location": "San Francisco, CA",
-        "attendees": ["John Doe", "Jane Smith"],
-        "priority": 1,
-        "organizers": ["Tech Innovations Inc."],
-        "description": "Annual technology and innovation conference",
-        "subevents": []
-    },
-    "Charity_Fundraiser": {
-        "status": 1,
-        "type": "Fundraising",
         "price": "Free",
-        "start": "2024-07-01",
-        "end": "2024-12-31",
-        "location": "Online",
-        "attendees": ["Alice Johnson", "Bob Williams"],
-        "priority": 2,
-        "organizers": ["Global Help Foundation"],
-        "description": "Year-long fundraising campaign for global education",
-        "subevents": [
-            {
-                "name": "Virtual Gala",
-                "date": "2024-10-15"
-            }
-        ]
-    },
-    "Summer_Music_Festival": {
-        "status": 2,
-        "type": "Entertainment",
-        "price": "$150",
-        "start": "2024-06-20",
-        "end": "2024-06-23",
-        "location": "Central Park, New York",
-        "attendees": ["Emily Davis", "Michael Brown"],
-        "priority": 3,
-        "organizers": ["City Music Productions"],
-        "description": "Three-day outdoor music festival featuring international artists",
+        "start": "2025-02-01",
+        "end": "2025-02-03",
+        "location": "New York City, NY",
+        "attendees": [
+            "John Doe",
+            "Jane Smith"
+        ],
+        "priority": 1,
+        "organizers": [
+            "Alice Johnson",
+            "Bob Brown"
+        ],
+        "description": "A conference about the future of AI.",
         "subevents": []
     },
-    "Product_Launch_Seminar": {
-        "status": 3,
-        "type": "Business",
-        "price": "$75",
-        "start": "2024-08-10",
-        "end": "2024-08-10",
-        "location": "Seattle, WA",
+    "Event2": {
+        "status": 1,
+        "type": "Workshop",
+        "price": "$100",
+        "start": "2025-01-25",
+        "end": "2025-01-26",
+        "location": "San Francisco, CA",
+        "attendees": [
+            "Michael Scott",
+            "Pam Beesly"
+        ],
+        "priority": 2,
+        "organizers": [
+            "Dwight Schrute"
+        ],
+        "description": "A hands-on workshop on project management.",
+        "subevents": []
+    },
+    "Event3": {
+        "status": 2,
+        "type": "Webinar",
+        "price": "$50",
+        "start": "2025-01-15",
+        "end": "2025-01-15",
+        "location": "Online",
+        "attendees": [
+            "Jim Halpert"
+        ],
+        "priority": 3,
+        "organizers": [
+            "Karen Filippelli"
+        ],
+        "description": "A webinar on effective communication skills.",
+        "subevents": []
+    },
+    "lmao": {
+        "status": 0,
+        "type": "type",
+        "price": "12000",
+        "start": "2025-12-31",
+        "end": "Invalid date format. Please enter in the format YYYY/MM/DD.",
+        "location": "hcm",
         "attendees": [],
-        "priority": 4,
-        "organizers": ["InnoTech Solutions"],
-        "description": "Cancelled due to unforeseen circumstances",
+        "priority": 0,
+        "organizers": [],
+        "description": "dklfhj",
         "subevents": []
     }
 }
